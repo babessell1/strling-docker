@@ -13,9 +13,7 @@ RUN apt-get update && apt-get install -y \
 
 # Install nim
 RUN curl https://nim-lang.org/choosenim/init.sh -sSf > init.sh \
-    && chmod +x init.sh \
-    && init.sh \
-    && rm init.sh
+    && sh init.sh
 
 ENV PATH="/home/ubuntu/.nimble/bin:${PATH}"
 
