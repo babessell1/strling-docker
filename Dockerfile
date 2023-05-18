@@ -4,11 +4,11 @@ FROM ubuntu:22.04
 WORKDIR /home/ubuntu/
 
 # Install required dependencies
-#RUN apt-get update && apt-get install -y \
-#    curl \
-#    wget \
-#    git \
-#    build-essential
+RUN apt-get update && apt-get install -y \
+    curl \
+    wget \
+    git \
+    build-essential
 
 # Install nim
 #RUN apt-get update && \

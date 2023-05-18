@@ -3,20 +3,25 @@
 cram=$1
 fasta=$2
 md5file=$3
+index=$4
 
-md5sum=$(echo $md5file)
+chmod 777 $cram
 
-MD_OUT=($($MD5SUM $cram))
-if [[ $MD_OUT != $md5]]
-then
+MD5SUM=$(cat $md5file)
+
+MD_OUT=$(md5sum $cram)
+echo $MD_OUT
+echo $MD5SUM
+
+
+if [[ $MD_OUT != $MD5SUM]]
     echo "MD5 sum does not match expected value!" 1>&2
     exit 1
 fi
-echo $MD_OUT
 
-sname=$(basename "$cram" .cram)
+sname=$(basename "$vi run_stcram" .cram)
 
 mkdir -p str-bins/
-strling extract -f $fasta $cram ${sname}.bin
+/home/ubuntu/strlingstrling extract -f $fasta $cram ${sname}.bin
 mkdir -p str-results/
 /home/ubuntu/strling call --output-prefix ${sname}/ -f $fasta $cram ${sname}.bin
