@@ -11,12 +11,13 @@ RUN apt-get update && apt-get install -y \
     build-essential
 
 # Install strling
-RUN curl https://nim-lang.org/choosenim/init.sh -sSf -o ./init.sh \
-    && chmod +x ./init.sh \
-    && ./init.sh \
-    && rm ./init.sh
+RUN curl -L https://nim-lang.org/choosenim/init.sh -o init.sh
+
+# Make init.sh executable and run it
+RUN chmod +x init.sh && ./init.sh && rm init.sh
 
 ENV PATH="/home/ubuntu/.nimble/bin:${PATH}"
+
 RUN git clone https://github.com/quinlan-lab/STRling.git && \
     cd STRling && \
     nimble install && \
