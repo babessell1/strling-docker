@@ -14,7 +14,9 @@ RUN apt-get update && apt-get install -y \
 RUN curl -L https://nim-lang.org/choosenim/init.sh -o init.sh
 
 # Make init.sh executable and run it
-RUN chmod +x init.sh && ./init.sh && rm init.sh
+RUN chmod +x init.sh
+RUN init.sh 
+RUN rm init.sh
 
 ENV PATH="/home/ubuntu/.nimble/bin:${PATH}"
 
