@@ -7,11 +7,12 @@ WORKDIR /home/ubuntu/
 # Install required dependencies
 RUN apt-get update && apt-get install -y \
     curl \
+    wget \
     git \
     build-essential
 
 # Install strling
-RUN curl -L https://nim-lang.org/choosenim/init.sh -o init.sh
+RUN wget https://nim-lang.org/choosenim/init.sh
 
 # Make init.sh executable and run it
 RUN chmod +x init.sh
