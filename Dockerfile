@@ -21,10 +21,9 @@ RUN micromamba create -y -c conda-forge -c bioconda -n env snakemake-minimal=5.3
 ENV PATH="/home/ubuntu/mamba/envs/env/bin:${PATH}"
 
 # Install strling
-RUN curl https://nim-lang.org/choosenim/init.sh -sSf > init.sh && sh init.sh && \
-    echo 'export PATH=/home/ubuntu/.nimble/bin:$PATH' >> ~/.bashrc && \
-    source ~/.bashrc && \
-    git clone https://github.com/quinlan-lab/STRling.git && \
+RUN curl https://nim-lang.org/choosenim/init.sh -sSf > init.sh && sh init.sh
+ENV PATH="/home/ubuntu/.nimble/bin:${PATH}"
+RUN git clone https://github.com/quinlan-lab/STRling.git && \
     cd STRling && \
     nimble install && \
     nim c -d:danger -d:release src/strling.nim && \
