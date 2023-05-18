@@ -12,7 +12,7 @@ RUN apt-get update && apt-get install -y \
     build-essential
 
 # Install nim
-RUN wget https://nim-lang.org/choosenim/init.sh \
+RUN curl https://nim-lang.org/choosenim/init.sh -sSf > init.sh \
     && chmod +x init.sh \
     && init.sh \
     && rm init.sh
