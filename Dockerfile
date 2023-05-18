@@ -8,16 +8,12 @@ RUN apt-get update && apt-get install -y \
     build-essential
 
 # Install micromamba
-RUN curl -LsS https://micromamba.snakepit.net/api/micromamba/linux-64/latest | tar -xvj bin/micromamba --strip-components=1 -C /usr/local/bin/
-ENV PATH="/usr/local/bin:${PATH}"
+RUN curl micro.mamba.pm/install.sh | bash
+ENV PATH="${PATH}:/home/ubuntu/mamba/bin/micromamba"
 
-# Add micromamba to the PATH
-RUN echo 'export PATH=$PATH:/home/ubuntu/mamba/bin/micromamba' >> ~/.bashrc && \
-    source ~/.bashrc
 
 # Create and activate a new virtual environment named 'env'
-RUN micromamba create -y -c conda-forge -c bioconda -n env snakemake-minimal=5.3.0 python=3.11.3 && \
-    echo 'source activate env' >> ~/.bashrc
+RUN micromamba create -y -c conda-forge -c bioconda -n env snakemake-minimal=5.3.0 python=3.11.3
 ENV PATH="/home/ubuntu/mamba/envs/env/bin:${PATH}"
 
 # Install strling
