@@ -15,4 +15,4 @@ sname=$(basename "$cram" .cram)
 mkdir -p str-bins/
 strling extract -f $fasta $cram ${sname}.bin
 mkdir -p str-results/
-strling call --output-prefix {output} -f {input.ref} {input.cram} {wildcards.sample}.bin
+/home/ubuntu/strling call --output-prefix ${sname}/ -f $fasta $cram ${sname}.bin
