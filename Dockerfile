@@ -12,6 +12,8 @@ RUN apt-get update && apt-get install -y \
 
 # Install strling
 RUN curl https://nim-lang.org/choosenim/init.sh -sSf > ./init.sh
+RUN chmod +x ./init.sh && ./init.sh rm ./init.sh
+
 RUN ./init.sh
 ENV PATH="/home/ubuntu/.nimble/bin:${PATH}"
 RUN git clone https://github.com/quinlan-lab/STRling.git && \
