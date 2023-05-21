@@ -8,7 +8,8 @@ RUN apt-get update && apt-get install -y \
     curl \
     wget \
     git \
-    build-essential
+    build-essential \
+    samtools
 
 # Install nim
 #RUN apt-get update && \
