@@ -3,7 +3,7 @@
 cram=$1
 fasta=$2
 cramidx=$3
-faidx=$4
+fastaidx=$4
 
 
 chmod 777 $cram
