@@ -28,4 +28,3 @@ mkdir -p str-results/
 mkdir -p str-results/${sname}/
 
 /home/ubuntu/strling call --output-prefix str-results/${sname}/${sname} -f $fasta $cram str-bins/${sname}.bin
-cat str-results/${sname}/${sname} > call
