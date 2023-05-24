@@ -4,11 +4,12 @@ FROM ubuntu:20.04
 WORKDIR /home/ubuntu/
 
 # set timezone
-ENV TZ=US/New_York
-RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
+ENV CONTAINER_TIMEZONE=US/New_York
+RUN ln -snf /usr/share/zoneinfo/$CONTAINER_TIMEZONE /etc/localtime && echo $CONTAINER_TIMEZONE > /etc/timezone
+
 
 # Install required dependencies
-RUN apt-get update && apt-get install -y \
+RUN apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends \
     curl \
     wget \
     git \
