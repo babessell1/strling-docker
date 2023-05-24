@@ -1,8 +1,8 @@
 #!/bin/bash
 
-cram=$1
+crams=$1
 fasta=$2
-cramidx=$3
+cramsidx=$3
 fastaidx=$4
 
 
@@ -19,7 +19,8 @@ chmod 777 $cram
 #    echo "MD5 sum does not match expected value!"
 #    exit 1
 #fi
-
+echo "CRAMS"
+echo ${crams}
 sname=$(basename "$cram" .cram)
 
 mkdir -p str-bins/
