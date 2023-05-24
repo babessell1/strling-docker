@@ -23,8 +23,9 @@ chmod 777 $cram
 sname=$(basename "$cram" .cram)
 
 mkdir -p str-bins/
-#/home/ubuntu/strling extract -f $fasta $cram "str-bins/${sname}.bin"
+/home/ubuntu/strling extract -f $fasta $cram "str-bins/${sname}.bin"
 mkdir -p str-results/
 mkdir -p str-results/${sname}/
+mkdir -p str-logs/${sname}/
 
-/home/ubuntu/strling call --output-prefix str-results/${sname}/${sname} -f $fasta $cram str-bins/${sname}.bin
+/home/ubuntu/strling call --output-prefix str-results/${sname}/${sname} -f $fasta $cram str-bins/${sname}.bin > str-logs/${sname}.log
