@@ -3,6 +3,10 @@ FROM ubuntu:20.04
 
 WORKDIR /home/ubuntu/
 
+# set timezone
+ENV TZ=US/New_York
+RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
+
 # Install required dependencies
 RUN apt-get update && apt-get install -y \
     curl \
