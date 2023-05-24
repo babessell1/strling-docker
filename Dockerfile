@@ -9,7 +9,8 @@ RUN apt-get update && apt-get install -y \
     wget \
     git \
     build-essential \
-    samtools
+    samtools \
+    parallel
 
 # Install nim
 #RUN apt-get update && \
