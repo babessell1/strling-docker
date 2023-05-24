@@ -1,15 +1,10 @@
 # Use Ubuntu 22.04 as the base image
-FROM ubuntu:20.04
+FROM ubuntu:22.04
 
 WORKDIR /home/ubuntu/
 
-# set timezone
-ENV CONTAINER_TIMEZONE=US/New_York
-RUN ln -snf /usr/share/zoneinfo/$CONTAINER_TIMEZONE /etc/localtime && echo $CONTAINER_TIMEZONE > /etc/timezone
-
-
 # Install required dependencies
-RUN apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends \
+RUN apt-get update && apt-get install -y \
     curl \
     wget \
     git \
