@@ -33,7 +33,7 @@ RUN wget https://github.com/quinlan-lab/STRling/releases/download/v0.5.2/strling
     chmod +x strling
 
 COPY run_strling.sh .
-RUN chmod -x run_strling.sh
+RUN chmod +x run_strling.sh
 
 # Set the entrypoint command
 CMD ["run_strling.sh"]
