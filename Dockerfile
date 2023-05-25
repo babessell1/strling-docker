@@ -1,8 +1,6 @@
 # Use Ubuntu 22.04 as the base image
 FROM ubuntu:22.04
 
-WORKDIR /home/ubuntu/
-
 # Install required dependencies
 RUN apt-get update && apt-get install -y \
     curl \
@@ -28,13 +26,14 @@ RUN apt-get update && apt-get install -y \
 #    nim c -d:danger -d:release src/strling.nim && \
 #    cd ..
 
+# Copy your application code into the container
+WORKDIR /usr/local/bin
+
 RUN wget https://github.com/quinlan-lab/STRling/releases/download/v0.5.2/strling && \
     chmod +x strling
 
-ENV PATH=/home/ubuntu/strling:$PATH
-
-# Copy your application code into the container
 COPY run_strling.sh .
+RUN chmod -x run_strling.sh
 
 # Set the entrypoint command
 CMD ["run_strling.sh"]
