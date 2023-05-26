@@ -5,16 +5,21 @@ fasta=$2
 cramsidx=$3
 fastaidx=$4
 
+echo "$crams"
+
 # faidx to same folder as fasta
 fname=$(basename "$fasta")
 directory=$(dirname "$fasta")
+echo "$directory"
+echo "$fname"
+echo "$fastaidx"
 cp "$fastaidx" "${directory}/${fname}.fai"
 
 process_cram_file() {
     cram_file=$1
     cramidx_file=$2
 
-    chmod 777 "$cram_file"
+    #chmod 777 "$cram_file"
 
     # copy crais to same folder as crams (tibanna puts in own folder)
     sname=$(basename "$cram_file" .cram)
