@@ -18,7 +18,7 @@ process_cram_file() {
     # copy crais to same folder as crams (tibanna puts in own folder)
     sname=$(basename "$cram_file" .cram)
     directory=$(dirname "$cram_file")
-    ln -s "$cramidx_file" "${directory}/${sname}.cram.crai"
+    ln -s "$cramsidx_file" "${directory}/${sname}.cram.crai"
 
     mkdir -p str-bins/
     /usr/local/bin/strling extract -f "$fasta" "$cram_file" "str-bins/${sname}.bin"
