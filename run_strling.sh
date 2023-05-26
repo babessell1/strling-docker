@@ -17,13 +17,13 @@ directory=$(dirname "$fasta")
 echo "$directory"
 echo "$fname"
 echo "$fastaidx"
-cp "$fastaidx" "${directory}/${fname}.fai"
+ln -s  "$fastaidx" "${directory}/${fname}.fai"
 
 
 # copy crais to same folder as crams (tibanna puts in own folder)
 sname=$(basename "$crams" .cram)
 directory=$(dirname "$crams")
-cp "$cramidx_file" "${directory}/${sname}.cram.crai"
+ln -s "$cramidx_file" "${directory}/${sname}.cram.crai"
 
 mkdir -p str-bins/
 /usr/local/bin/strling extract -f "$fasta" "$crams" "str-bins/${sname}.bin"
