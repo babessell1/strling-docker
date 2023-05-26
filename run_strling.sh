@@ -13,12 +13,12 @@ process_cram_file() {
     sname=$(basename "$cram_file" .cram)
 
     mkdir -p str-bins/
-    /home/ubuntu/strling extract -f "$fasta" "$cram_file" "str-bins/${sname}.bin"
+    /usr/local/bin/strling extract -f "$fasta" "$cram_file" "str-bins/${sname}.bin"
     mkdir -p str-results/
     mkdir -p "str-results/${sname}/"
     mkdir -p "str-logs/${sname}/"
 
-    /home/ubuntu/strling call --output-prefix "str-results/${sname}/${sname}" -f "$fasta" "$cram_file" "str-bins/${sname}.bin" > "str-logs/${sname}.log"
+    /usr/local/bin/strling call --output-prefix "str-results/${sname}/${sname}" -f "$fasta" "$cram_file" "str-bins/${sname}.bin" > "str-logs/${sname}.log"
 }
 
 export -f process_cram_file
