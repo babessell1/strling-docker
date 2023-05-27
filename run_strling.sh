@@ -5,20 +5,28 @@ fasta=$2
 cramsidx=$3
 fastaidx=$4
 
+echo "$crams"
+echo "$fasta"
+echo "$cramsidx"
+echo "$fastaidx"
+
+samtools faidx $fasta
 
 # faidx to same folder as fasta
 fname=$(basename "$fasta")
 directory=$(dirname "$fasta")
-ln -s "$fastaidx" "${directory}/${fname}.fai"
+#ln -s "$fastaidx" "${directory}/${fname}.fai"
 
 process_cram_file() {
     cram_file=$1
-    cramidx_file=$2
+    echo "$cram_file"
+    #cramidx_file=$2
+    samtools index $cram_file
 
     # copy crais to same folder as crams (tibanna puts in own folder)
     sname=$(basename "$cram_file" .cram)
     directory=$(dirname "$cram_file")
-    ln -s "$cramsidx_file" "${directory}/${sname}.cram.crai"
+    #ln -s "$cramsidx_file" "${directory}/${sname}.cram.crai"
 
     mkdir -p str-bins/
     /usr/local/bin/strling extract -f "$fasta" "$cram_file" "str-bins/${sname}.bin"
@@ -32,7 +40,7 @@ process_cram_file() {
 export -f process_cram_file
 
 # Run the process_cram_file function in parallel for each CRAM file
-parallel --jobs 2 process_cram_file ::: $crams $cramsidx
+parallel --jobs 2 process_cram_file ::: $crams #$cramsidx
 
 # Ensure all parallel jobs are completed before proceeding
 wait
