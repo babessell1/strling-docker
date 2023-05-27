@@ -1,9 +1,14 @@
 #!/bin/bash
 
-crams=$1
+cram1=$1
+cram2=$2
 fasta=$3
-cramsidx=$4
+cram1idx=$4
+cram2idx=$5
 fastaidx=$6
+
+crams=($cram1, $cram2)
+cramsidx=($cram1idx, $cram2idx)
 
 echo "$crams"
 echo "$fasta"
