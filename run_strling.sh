@@ -1,8 +1,8 @@
 #!/bin/bash
 
-crams=($1, $2)
+crams=$1
 fasta=$3
-cramsidx=($4, $5)
+cramsidx=$4
 fastaidx=$6
 
 echo "$crams"
