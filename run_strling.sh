@@ -1,9 +1,9 @@
 #!/bin/bash
 
-crams=$1
-fasta=$2
-cramsidx=$3
-fastaidx=$4
+crams=($1, $2)
+fasta=$3
+cramsidx=($4, $5)
+fastaidx=$6
 
 echo "$crams"
 echo "$fasta"
