@@ -22,8 +22,8 @@ echo "ls: $(ls)"
 echo "pwd: $(pwd)"
 echo "sname: $sname"
 echo "fname: $fname"
-echo "sub ls: $(ls /mnt)"
-echo "sub pwd: $(pwd /mnt)"
+echo "sub ls: $(ls /mnt/*)"
+echo "sub pwd: $(pwd /mnt/*)"
 
 #ln -s "$fastaidx" "${ro_ref_dir}/${fname}.fai"
 
