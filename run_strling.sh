@@ -18,7 +18,8 @@ sname=$(basename "$cram_file" .cram)
 ro_cram_dir=$(dirname "$cram_file")
 
 ls /mnt/data1/input | echo
-ls / | echo
+echo "$(ls)"
+echo "$(pwd)"
 
 echo "sname"
 echo "$sname"
