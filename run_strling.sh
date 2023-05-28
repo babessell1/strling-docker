@@ -1,9 +1,9 @@
 #!/bin/bash
 
 cram=$1
-fasta=$2
-cramidx=$3
-fastaidx=$4
+fasta=$3
+cramidx=$4
+fastaidx=$6
 
 echo "Start"
 echo "$cram"
