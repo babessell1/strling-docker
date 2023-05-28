@@ -1,66 +1,39 @@
 #!/bin/bash
 
-crams=($1 $2)
-fasta=$3
-cramsidx=($4 $5)
-fastaidx=$6
+cram=$1
+fasta=$2
+cramidx=$3
+fastaidx=$4
 
-echo "$crams"
-echo "$fasta"
-echo "$cramsidx"
-echo "$fastaidx"
-
-ref_dir="/data1/input/references/"
-cram_dir="/data1/input/crams/"
-
-echo "$ref_dir"
-echo "$cram_dir"
-
-
-# faidx to same folder as fasta
 fname=$(basename "$fasta")
 ro_ref_dir=$(dirname "$fasta")
-#ln -s "$fastaidx" "${directory}/${fname}.fai"
+ln -s "$fastaidx" "${directory}/${fname}.fai"
 
 samtools faidx "${ref_dir}/${fname}"
 
-process_cram_file() {
-    cram_file=$1
 
-    echo "function"
-    echo "$fa"
+mkdir -p str-bins/
+/usr/local/bin/strling extract -f "$fa" "${cram_dir}/${sname}.cram" "str-bins/${sname}.bin"
+mkdir -p str-results/
+mkdir -p "str-results/${sname}/"
+mkdir -p "str-logs/${sname}/"
 
-    echo "$cram_file"
-
-    # copy crais to same folder as crams (tibanna puts in own folder)
-    sname=$(basename "$cram_file" .cram)
-    ro_cram_dir=$(dirname "$cram_file")
-    #ln -s "$cramsidx_file" "${directory}/${sname}.cram.crai"
-
-    echo "$sname"
-
-    ref_dir="/data1/input/references/"
-    cram_dir="/data1/input/crams/"
+/usr/local/bin/strling call --output-prefix "str-results/${sname}/${sname}" -f "$fa" "${cram_dir}/${sname}.cram" "str-bins/${sname}.bin" > "str-logs/${cname}.log"
 
 
-    #cramidx_file=$2
-    samtools index "${cram_dir}/${sname}.cram"
+fname=$(basename "$fasta")
+ro_ref_dir=$(dirname "$fasta")
 
-    mkdir -p str-bins/
-    /usr/local/bin/strling extract -f "$fa" "${cram_dir}/${sname}.cram" "str-bins/${sname}.bin"
-    mkdir -p str-results/
-    mkdir -p "str-results/${sname}/"
-    mkdir -p "str-logs/${sname}/"
+sname=$(basename "$cram_file" .cram)
+ro_cram_dir=$(dirname "$cram_file")
 
-    /usr/local/bin/strling call --output-prefix "str-results/${sname}/${sname}" -f "$fa" "${cram_dir}/${sname}.cram" "str-bins/${sname}.bin" > "str-logs/${cname}.log"
-}
+ln -s "$fastaidx" "${ro_ref_dir}/${fname}.fai"
+ln -s "$cramidx" "${ro_cram_dir}/${sname}.cram.crai"
 
-export -f process_cram_file
-
-# Run the process_cram_file function in parallel for each CRAM file
-parallel --env fa --jobs 2 process_cram_file "${ref_dir}/${fname}" ::: $crams #$cramsidx
-
-# Ensure all parallel jobs are completed before proceeding
-wait
-
+mkdir -p str-bins/
+/usr/local/bin/strling extract -f "$fasta" "$cram" "str-bins/${sname}.bin"
+mkdir -p str-results/
+mkdir -p "str-results/${sname}/"
+mkdir -p "str-logs/${sname}/"
+/usr/local/bin/strling call --output-prefix "str-results/${sname}/${sname}" -f "$fasta" "$cram" "str-bins/${sname}.bin" > "str-logs/${sname}.log"
 
