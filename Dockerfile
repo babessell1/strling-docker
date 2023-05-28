@@ -35,5 +35,7 @@ RUN wget https://github.com/quinlan-lab/STRling/releases/download/v0.5.2/strling
 COPY run_strling.sh .
 RUN chmod +x run_strling.sh
 
+RUN chmod -R 777 /var/lib/
+
 # Set the entrypoint command
 CMD ["run_strling.sh"]

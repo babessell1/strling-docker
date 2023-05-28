@@ -16,6 +16,7 @@ ro_ref_dir=$(dirname "$fasta")
 
 sname=$(basename "$cram" .cram)
 ro_cram_dir=$(dirname "$cram")
+ro_cramidx_dir=$(dirname "$cramidx")
 
 #ls /mnt/data1/input | echo
 echo "ls: $(ls)"
@@ -27,7 +28,7 @@ echo "sub pwd: $(pwd /mnt/*)"
 
 #ln -s "$fastaidx" "${ro_ref_dir}/${fname}.fai"
 
-mv "/data1/input/cramsidx/${sname}.cram.crai" "data1/input/crams/${sname}.cram.crai"
+mv "${ro_cram_dir}/${sname}.cram.crai" "${ro_cram_dir}/${sname}.cram.crai"
 
 cram="/data1/input/crams/${sname}.cram"
 fasta="/data1/input/references/${fname}"
