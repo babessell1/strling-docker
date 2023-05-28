@@ -14,8 +14,8 @@ echo "$fastaidx"
 fname=$(basename "$fasta")
 ro_ref_dir=$(dirname "$fasta")
 
-sname=$(basename "$cram_file" .cram)
-ro_cram_dir=$(dirname "$cram_file")
+sname=$(basename "$cram" .cram)
+ro_cram_dir=$(dirname "$cram")
 
 ls /mnt/data1/input | echo
 echo "$(ls)"
