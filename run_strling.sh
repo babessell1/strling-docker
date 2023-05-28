@@ -17,7 +17,8 @@ ro_ref_dir=$(dirname "$fasta")
 sname=$(basename "$cram_file" .cram)
 ro_cram_dir=$(dirname "$cram_file")
 
-ls "/data1/input/" | echo
+ls /mnt/data1/input | echo
+ls / | echo
 
 echo "sname"
 echo "$sname"
