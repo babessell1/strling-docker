@@ -28,10 +28,10 @@ echo "sub pwd: $(pwd /mnt/*)"
 
 #ln -s "$fastaidx" "${ro_ref_dir}/${fname}.fai"
 
-mv "${ro_cram_dir}/${sname}.cram.crai" "${ro_cram_dir}/${sname}.cram.crai"
+mv "${ro_cramidx_dir}/${sname}.cram.crai" "${ro_cram_dir}/${sname}.cram.crai"
 
-cram="/data1/input/crams/${sname}.cram"
-fasta="/data1/input/references/${fname}"
+#cram="/data1/input/crams/${sname}.cram"
+#fasta="/data1/input/references/${fname}"
 
 mkdir -p str-bins/
 /usr/local/bin/strling extract -f "$fasta" "$cram" "str-bins/${sname}.bin"
