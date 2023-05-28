@@ -20,7 +20,6 @@ ro_cram_dir=$(dirname "$cram_file")
 ls /mnt/data1/input | echo
 echo "$(ls)"
 echo "$(pwd)"
-
 echo "sname"
 echo "$sname"
 echo "$fname"
