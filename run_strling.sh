@@ -28,7 +28,7 @@ echo "sub pwd: $(pwd /mnt/*)"
 
 #ln -s "$fastaidx" "${ro_ref_dir}/${fname}.fai"
 
-mv "${ro_cramidx_dir}/${sname}.cram.crai" "${ro_cram_dir}/${sname}.cram.crai"
+cp "${ro_cramidx_dir}/${sname}.cram.crai" "${ro_cram_dir}/${sname}.cram.crai"
 
 #cram="/data1/input/crams/${sname}.cram"
 #fasta="/data1/input/references/${fname}"
