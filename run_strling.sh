@@ -17,9 +17,18 @@ ro_ref_dir=$(dirname "$fasta")
 sname=$(basename "$cram_file" .cram)
 ro_cram_dir=$(dirname "$cram_file")
 
-ln -s "$fastaidx" "${ro_ref_dir}/${fname}.fai"
-ln -s "$cramidx" "${ro_cram_dir}/${sname}.cram.crai"
+ls "/data1/input/" | echo
 
+echo "sname"
+echo "$sname"
+echo "$fname"
+
+#ln -s "$fastaidx" "${ro_ref_dir}/${fname}.fai"
+
+mv "/data1/input/cramsidx/${sname}.cram.crai" "data1/input/crams/${sname}.cram.crai"
+
+cram="/data1/input/crams/${sname}.cram"
+fasta="/data1/input/references/${fname}
 
 mkdir -p str-bins/
 /usr/local/bin/strling extract -f "$fasta" "$cram" "str-bins/${sname}.bin"
