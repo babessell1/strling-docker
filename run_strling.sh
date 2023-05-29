@@ -28,11 +28,11 @@ process_file() {
     #/usr/local/bin/strling extract -f "$fasta" "$cram" "str-bins/${sname}.bin"
     touch str-bins/${sname}.dummy.bin
     #mkdir -p str-results/
-    mkdir -p "str-results/${sname}/"
+    #mkdir -p "str-results/${sname}/"
     #mkdir -p "str-logs/${sname}/"
 
     #/usr/local/bin/strling call --output-prefix "str-results/${sname}/${sname}" -f "$fasta" "$cram" "str-bins/${sname}.bin" > "str-logs/${sname}.log"
-    touch str-results/${sname}/"dummy.txt"
+    touch str-results/${sname}_dummy.txt
 
 }
 
