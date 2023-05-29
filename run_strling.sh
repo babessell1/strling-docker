@@ -32,7 +32,7 @@ process_file() {
     #mkdir -p "str-logs/${sname}/"
 
     #/usr/local/bin/strling call --output-prefix "str-results/${sname}/${sname}" -f "$fasta" "$cram" "str-bins/${sname}.bin" > "str-logs/${sname}.log"
-    touch str-resuls/${sname}/"dummy.txt"
+    touch str-results/${sname}/"dummy.txt"
     echo "$(ls str-results/*)"
 
 }
