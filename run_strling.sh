@@ -25,7 +25,8 @@ process_file() {
     cp "${ro_cramidx_dir}/${sname}.cram.crai" "${ro_cram_dir}/${sname}.cram.crai"
 
     mkdir -p str-bins/
-    /usr/local/bin/strling extract -f "$fasta" "$cram" "str-bins/${sname}.bin"
+    #/usr/local/bin/strling extract -f "$fasta" "$cram" "str-bins/${sname}.bin"
+    touch str-bins/${sname}.bin
     #mkdir -p str-results/
     mkdir -p "str-results/${sname}/"
     #mkdir -p "str-logs/${sname}/"
@@ -42,7 +43,7 @@ cramidx1="$4"
 cramidx2="$5"
 fastaidx="$6"
 
-echo "$(pwd)
+echo "$(pwd)"
 
 echo "${cram1}"
 echo "${cram2}"
