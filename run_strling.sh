@@ -22,15 +22,16 @@ process_file() {
     echo "ro_cramidx_dir: ${ro_cramidx_dir}"
     echo "============================"
     
-    #cp "${ro_cramidx_dir}/${sname}.cram.crai" "${ro_cram_dir}/${sname}.cram.crai"
+    cp "${ro_cramidx_dir}/${sname}.cram.crai" "${ro_cram_dir}/${sname}.cram.crai"
 
     mkdir -p str-bins/
     /usr/local/bin/strling extract -f "$fasta" "$cram" "str-bins/${sname}.bin"
-    mkdir -p str-results/
+    #mkdir -p str-results/
     mkdir -p "str-results/${sname}/"
-    mkdir -p "str-logs/${sname}/"
+    #mkdir -p "str-logs/${sname}/"
 
     #/usr/local/bin/strling call --output-prefix "str-results/${sname}/${sname}" -f "$fasta" "$cram" "str-bins/${sname}.bin" > "str-logs/${sname}.log"
+
 }
 
 # Assign the command-line arguments to variables
@@ -40,6 +41,8 @@ fasta="$3"
 cramidx1="$4"
 cramidx2="$5"
 fastaidx="$6"
+
+echo "$(pwd)
 
 echo "${cram1}"
 echo "${cram2}"
@@ -59,3 +62,8 @@ echo "${fastaidx}"
 
 # Wait for all parallel processes to finish
 wait
+
+echo "$(ls str-bins)"
+echo "$(ls)"
+echo "$(ls str-results)"
+echo "$(ls mnt/data1/out/str-results)"
