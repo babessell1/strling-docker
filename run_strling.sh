@@ -12,6 +12,7 @@ process_file() {
     local ro_cram_dir=$(dirname "$cram")
     local ro_cramidx_dir=$(dirname "$cramidx")
 
+    echo "--------------------------"
     echo "sname: ${sname}"
     echo "fname: ${fname}"
     echo "cram: ${cram}"
@@ -19,11 +20,12 @@ process_file() {
     echo "ro_ref_dir: ${ro_ref_dir}"
     echo "ro_cram_dir: ${ro_cram_dir}"
     echo "ro_cramidx_dir: ${ro_cramidx_dir}"
+    echo "============================"
     
     #cp "${ro_cramidx_dir}/${sname}.cram.crai" "${ro_cram_dir}/${sname}.cram.crai"
 
     mkdir -p str-bins/
-    #/usr/local/bin/strling extract -f "$fasta" "$cram" "str-bins/${sname}.bin"
+    /usr/local/bin/strling extract -f "$fasta" "$cram" "str-bins/${sname}.bin"
     mkdir -p str-results/
     mkdir -p "str-results/${sname}/"
     mkdir -p "str-logs/${sname}/"
