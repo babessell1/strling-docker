@@ -27,7 +27,7 @@ process_file() {
     mkdir -p str-bins/
     #/usr/local/bin/strling extract -f "$fasta" "$cram" "str-bins/${sname}.bin"
     touch str-bins/${sname}.dummy.bin
-    #mkdir -p str-results/
+    mkdir -p str-results/
     #mkdir -p "str-results/${sname}/"
     #mkdir -p "str-logs/${sname}/"
 
