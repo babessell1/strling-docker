@@ -1,27 +1,34 @@
 #!/bin/bash
 
-call_strling() {
-    cram="$1"
-    fasta="$2"
-    cramidx="$3"
+process_file() {
+    local cram="$1"
+    local fasta="$2"
+    local cramidx="$3"
 
-    fname=$(basename "$fasta")
-    ro_ref_dir=$(dirname "$fasta")
+    local fname=$(basename "$fasta")
+    local ro_ref_dir=$(dirname "$fasta")
 
-    sname=$(basename "$cram" .cram)
-    ro_cram_dir=$(dirname "$cram")
-    ro_cramidx_dir=$(dirname "$cramidx")
+    local sname=$(basename "$cram" .cram)
+    local ro_cram_dir=$(dirname "$cram")
+    local ro_cramidx_dir=$(dirname "$cramidx")
 
-    cp "${ro_cramidx_dir}/${sname}.cram.crai" "${ro_cram_dir}/${sname}.cram.crai"
+    echo "sname: ${sname}"
+    echo "fname: ${fname}"
+    echo "cram: ${cram}"
+    echo "cramidx: ${cramidx}"
+    echo "ro_ref_dir: ${ro_ref_dir}"
+    echo "ro_cram_dir: ${ro_cram_dir}"
+    echo "ro_cramidx_dir: ${ro_cramidx_dir}"
+    
+    #cp "${ro_cramidx_dir}/${sname}.cram.crai" "${ro_cram_dir}/${sname}.cram.crai"
 
     mkdir -p str-bins/
-    /usr/local/bin/strling extract -f "$fasta" "$cram" "str-bins/${sname}.bin"
+    #/usr/local/bin/strling extract -f "$fasta" "$cram" "str-bins/${sname}.bin"
     mkdir -p str-results/
     mkdir -p "str-results/${sname}/"
     mkdir -p "str-logs/${sname}/"
 
-    /usr/local/bin/strling call --output-prefix "str-results/${sname}/${sname}" -f "$fasta" "$cram" "str-bins/${sname}.bin"
-    echo "done"
+    #/usr/local/bin/strling call --output-prefix "str-results/${sname}/${sname}" -f "$fasta" "$cram" "str-bins/${sname}.bin" > "str-logs/${sname}.log"
 }
 
 # Assign the command-line arguments to variables
@@ -32,8 +39,21 @@ cramidx1="$4"
 cramidx2="$5"
 fastaidx="$6"
 
-# Define the function to be executed in parallel
-export -f call_strling
+echo "${cram1}"
+echo "${cram2}"
+echo "${fasta}"
+echo "${cramidx1}"
+echo "${cramidx2}"
+echo "${fastaidx}"
 
 # Run the script in parallel for both cram1 and cram2
-parallel call_strling ::: "$cram1" "$cram2" ::: "$fasta" "$fasta" ::: "$cramidx1" "$cramidx2"
+(
+    process_file "$cram1" "$fasta" "$cramidx1"
+) &
+
+(
+    process_file "$cram2" "$fasta" "$cramidx2"
+) &
+
+# Wait for all parallel processes to finish
+wait
