@@ -26,12 +26,14 @@ process_file() {
 
     mkdir -p str-bins/
     #/usr/local/bin/strling extract -f "$fasta" "$cram" "str-bins/${sname}.bin"
-    touch str-bins/${sname}.bin
+    touch str-bins/${sname}.dummy.bin
     #mkdir -p str-results/
     mkdir -p "str-results/${sname}/"
     #mkdir -p "str-logs/${sname}/"
 
     #/usr/local/bin/strling call --output-prefix "str-results/${sname}/${sname}" -f "$fasta" "$cram" "str-bins/${sname}.bin" > "str-logs/${sname}.log"
+    touch str-resuls/${sname}/"dummy.txt"
+    echo "$(ls str-results/*)"
 
 }
 
@@ -66,5 +68,3 @@ wait
 
 echo "$(ls str-bins)"
 echo "$(ls)"
-echo "$(ls str-results)"
-echo "$(ls mnt/data1/out/str-results)"
