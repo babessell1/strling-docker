@@ -33,7 +33,6 @@ process_file() {
 
     #/usr/local/bin/strling call --output-prefix "str-results/${sname}/${sname}" -f "$fasta" "$cram" "str-bins/${sname}.bin" > "str-logs/${sname}.log"
     touch str-results/${sname}/"dummy.txt"
-    echo "$(ls str-results/*)"
 
 }
 
@@ -67,4 +66,4 @@ echo "${fastaidx}"
 wait
 
 echo "$(ls str-bins)"
-echo "$(ls)"
+echo "$(ls str-results)"
