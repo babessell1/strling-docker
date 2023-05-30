@@ -37,8 +37,6 @@ process_file() {
     touch ${sname}/${sname}-unplaced.txt.gz
     tar -zcvf ${sname}.tar.gz ${sname}
 
-
-
 }
 
 # Assign the command-line arguments to variables
@@ -70,5 +68,4 @@ echo "${fastaidx}"
 # Wait for all parallel processes to finish
 wait
 
-echo "$(ls output/str-bins)"
-echo "$(ls output/str-results)"
+echo "$(ls)"
