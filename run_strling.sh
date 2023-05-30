@@ -68,5 +68,5 @@ echo "${fastaidx}"
 # Wait for all parallel processes to finish
 wait
 
-echo "$(ls str-bins)"
-echo "$(ls str-results)"
+echo "$(ls output/str-bins)"
+echo "$(ls output/str-results)"
