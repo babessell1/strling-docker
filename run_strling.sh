@@ -32,10 +32,9 @@ process_file() {
     #mkdir -p "str-logs/${sname}/"
 
     #/usr/local/bin/strling call --output-prefix "str-results/${sname}" -f "$fasta" "$cram" "str-bins/${sname}.bin" > "str-logs/${sname}.log"
-    touch output/str-results/${sname}-bounds.txt.gz
-    touch output/str-results/${sname}-genotype.txt.gz
-    touch output/str-results/${sname}-unplaced.txt.gz
-
+    touch output/str-results/${sname}/${sname}-bounds.txt.gz
+    touch output/str-results/${sname}/${sname}-genotype.txt.gz
+    touch output/str-results/${sname}/${sname}-unplaced.txt.gz
 
 }
 
