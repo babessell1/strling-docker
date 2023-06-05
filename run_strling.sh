@@ -26,16 +26,15 @@ process_file() {
 
     #mkdir -p str-bins/
     #/usr/local/bin/strling extract -f "$fasta" "$cram" "${sname}.bin"
-    #touch str-bins/${sname}.dummy.bin
+    touch output/${sname}.dummy.bin
     #mkdir -p ${sname}
     #mkdir -p "str-results/${sname}/"
     #mkdir -p "str-logs/${sname}/"
 
     #/usr/local/bin/strling call --output-prefix "${sname}" -f "$fasta" "$cram" "${sname}/${sname}.bin"
-    #touch ${sname}-bounds.txt
-    touch ${sname}-genotype.txt
-    gzip ${sname}-genotype.txt
-    #touch ${sname}-unplaced.txt
+    touch output/${sname}-bounds.txt
+    touch output/${sname}-genotype.txt
+    touch output/${sname}-unplaced.txt
 
 
     #tar -zcvf ${sname}.tar.gz ${sname}
@@ -70,5 +69,7 @@ echo "${fastaidx}"
 
 # Wait for all parallel processes to finish
 wait
-
+name1=$(basename "$cram1" .cram)
+name1=$(basename "$cram2" .cram)
+tar cf ${name1}_${name2}.tar output
 echo "$(ls)"
