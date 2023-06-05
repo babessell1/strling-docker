@@ -24,7 +24,6 @@ process_file() {
     
     cp "${ro_cramidx_dir}/${sname}.cram.crai" "${ro_cram_dir}/${sname}.cram.crai"
 
-    #mkdir -p str-bins/
     #/usr/local/bin/strling extract -f "$fasta" "$cram" "${sname}.bin"
     touch output/${sname}.dummy.bin
     #mkdir -p ${sname}
@@ -72,4 +71,6 @@ wait
 name1=$(basename "$cram1" .cram)
 name1=$(basename "$cram2" .cram)
 tar cf ${name1}_${name2}.tar output
+mv ${name1}_${name2}.tar out/${name1}_${name2}.tar
+
 echo "$(ls)"
