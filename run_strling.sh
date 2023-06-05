@@ -57,6 +57,9 @@ echo "${cramidx1}"
 echo "${cramidx2}"
 echo "${fastaidx}"
 
+mkdir -p output
+mkdir -p out
+
 # Run the script in parallel for both cram1 and cram2
 (
     process_file "$cram1" "$fasta" "$cramidx1"
