@@ -24,18 +24,21 @@ process_file() {
     
     cp "${ro_cramidx_dir}/${sname}.cram.crai" "${ro_cram_dir}/${sname}.cram.crai"
 
-    mkdir -p str-bins/
-    #/usr/local/bin/strling extract -f "$fasta" "$cram" "str-bins/${sname}.bin"
-    touch str-bins/${sname}.dummy.bin
-    mkdir -p ${sname}
+    #mkdir -p str-bins/
+    #/usr/local/bin/strling extract -f "$fasta" "$cram" "${sname}.bin"
+    #touch str-bins/${sname}.dummy.bin
+    #mkdir -p ${sname}
     #mkdir -p "str-results/${sname}/"
     #mkdir -p "str-logs/${sname}/"
 
-    #/usr/local/bin/strling call --output-prefix "str-results/${sname}" -f "$fasta" "$cram" "str-bins/${sname}.bin" > "str-logs/${sname}.log"
-    touch ${sname}/${sname}-bounds.txt.gz
-    touch ${sname}/${sname}-genotype.txt.gz
-    touch ${sname}/${sname}-unplaced.txt.gz
-    tar -zcvf ${sname}.tar.gz ${sname}
+    #/usr/local/bin/strling call --output-prefix "${sname}" -f "$fasta" "$cram" "${sname}/${sname}.bin"
+    #touch ${sname}-bounds.txt
+    touch ${sname}-genotype.txt
+    gzip ${sname}-genotype.txt
+    #touch ${sname}-unplaced.txt
+
+
+    #tar -zcvf ${sname}.tar.gz ${sname}
 
 }
 
