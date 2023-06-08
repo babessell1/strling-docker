@@ -72,8 +72,13 @@ mkdir -p out
 # Wait for all parallel processes to finish
 wait
 name1=$(basename "$cram1" .cram)
-name1=$(basename "$cram2" .cram)
+name2=$(basename "$cram2" .cram)
 tar cf ${name1}_${name2}.tar output
 mv ${name1}_${name2}.tar out/${name1}_${name2}.tar
 
+echo "root"
 echo "$(ls)"
+echo "out"
+echo "$(ls out)"
+echo "output"
+echo "$(ls output)"
