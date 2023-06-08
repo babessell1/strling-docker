@@ -24,20 +24,11 @@ process_file() {
     
     cp "${ro_cramidx_dir}/${sname}.cram.crai" "${ro_cram_dir}/${sname}.cram.crai"
 
-    #/usr/local/bin/strling extract -f "$fasta" "$cram" "${sname}.bin"
-    touch output/${sname}.dummy.bin
-    #mkdir -p ${sname}
-    #mkdir -p "str-results/${sname}/"
-    #mkdir -p "str-logs/${sname}/"
-
-    #/usr/local/bin/strling call --output-prefix "${sname}" -f "$fasta" "$cram" "${sname}/${sname}.bin"
-    touch output/${sname}-bounds.txt
-    touch output/${sname}-genotype.txt
-    touch output/${sname}-unplaced.txt
-
-
-    #tar -zcvf ${sname}.tar.gz ${sname}
-
+    /usr/local/bin/strling extract -f "$fasta" "$cram" "output/${sname}.bin"
+    /usr/local/bin/strling call --output-prefix "output/${sname}" -f "$fasta" "$cram" "output/${sname}.bin"
+    #touch output/${sname}-bounds.txt
+    #touch output/${sname}-genotype.txt
+    #touch output/${sname}-unplaced.txt
 }
 
 # Assign the command-line arguments to variables
@@ -47,15 +38,6 @@ fasta="$3"
 cramidx1="$4"
 cramidx2="$5"
 fastaidx="$6"
-
-echo "$(pwd)"
-
-echo "${cram1}"
-echo "${cram2}"
-echo "${fasta}"
-echo "${cramidx1}"
-echo "${cramidx2}"
-echo "${fastaidx}"
 
 mkdir -p output
 mkdir -p out
@@ -75,10 +57,5 @@ name1=$(basename "$cram1" .cram)
 name2=$(basename "$cram2" .cram)
 tar cf ${name1}_${name2}.tar output
 mv ${name1}_${name2}.tar out/${name1}_${name2}.tar
-
-echo "root"
-echo "$(ls)"
-echo "out"
-echo "$(ls out)"
-echo "output"
-echo "$(ls output)"
+touch success/${name1}.chk
+touch success/${name2}.chk
