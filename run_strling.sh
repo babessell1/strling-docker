@@ -59,4 +59,4 @@ tar cf ${name1}_${name2}.tar output
 mv ${name1}_${name2}.tar out/${name1}_${name2}.tar
 
 echo "$(ls out)"
-echo "$(ls)"
+echo "$(ls output)"
