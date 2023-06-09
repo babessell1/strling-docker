@@ -57,5 +57,6 @@ name1=$(basename "$cram1" .cram)
 name2=$(basename "$cram2" .cram)
 tar cf ${name1}_${name2}.tar output
 mv ${name1}_${name2}.tar out/${name1}_${name2}.tar
-touch success/${name1}.chk
-touch success/${name2}.chk
+
+echo "$(ls out)"
+echo "$(ls)"
