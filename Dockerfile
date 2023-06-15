@@ -10,6 +10,8 @@ RUN apt-get update && apt-get install -y \
     samtools \
     parallel
 
+# rebuild
+
 # Install nim
 #RUN apt-get update && \
 #  apt-get install -y curl xz-utils gcc openssl ca-certificates git && \

@@ -11,24 +11,12 @@ process_file() {
     local sname=$(basename "$cram" .cram)
     local ro_cram_dir=$(dirname "$cram")
     local ro_cramidx_dir=$(dirname "$cramidx")
-
-    echo "--------------------------"
-    echo "sname: ${sname}"
-    echo "fname: ${fname}"
-    echo "cram: ${cram}"
-    echo "cramidx: ${cramidx}"
-    echo "ro_ref_dir: ${ro_ref_dir}"
-    echo "ro_cram_dir: ${ro_cram_dir}"
-    echo "ro_cramidx_dir: ${ro_cramidx_dir}"
-    echo "============================"
     
     cp "${ro_cramidx_dir}/${sname}.cram.crai" "${ro_cram_dir}/${sname}.cram.crai"
 
     /usr/local/bin/strling extract -f "$fasta" "$cram" "output/${sname}.bin"
     /usr/local/bin/strling call --output-prefix "output/${sname}" -f "$fasta" "$cram" "output/${sname}.bin"
-    #touch output/${sname}-bounds.txt
-    #touch output/${sname}-genotype.txt
-    #touch output/${sname}-unplaced.txt
+
 }
 
 # Assign the command-line arguments to variables
