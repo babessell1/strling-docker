@@ -10,22 +10,6 @@ RUN apt-get update && apt-get install -y \
     samtools \
     parallel
 
-# Install nim
-#RUN apt-get update && \
-#  apt-get install -y curl xz-utils gcc openssl ca-certificates git && \
-#  curl https://nim-lang.org/choosenim/init.sh -sSf | bash -s -- -y && \
-#  apt -y autoremove && \
-#  apt -y clean
-
-#ENV PATH=/home/ubuntu/.nimble/bin:$PATH
-
-#install strling
-#RUN git clone https://github.com/quinlan-lab/STRling.git && \
-#    cd STRling && \
-#    nimble install -y && \
-#    nim c -d:danger -d:release src/strling.nim && \
-#    cd ..
-
 # Change to your working directory
 WORKDIR /usr/local/bin
 
