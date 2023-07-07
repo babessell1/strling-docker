@@ -28,8 +28,7 @@ process_file() {
     local ro_cramidx_dir=$(dirname "$cramidx")
     
     # strling requires idx in same folder
-    #cp "${ro_cramidx_dir}/${bname}.cram.crai" "${ro_cram_dir}/${bname}.cram.crai"
-    samtools index -@ 2 "$cram"
+    cp "${ro_cramidx_dir}/${bname}.cram.crai" "${ro_cram_dir}/${bname}.cram.crai"
 
     # extract repetitive region binaries
     /usr/local/bin/strling extract -f "$fasta" "$cram" "output/${bname}.bin"
@@ -43,7 +42,9 @@ process_file() {
 cram1="$1"
 cram2="$2"
 fasta="$3"
-fastaidx="$4"
+cramidx1="$4"
+cramidx2="$5"
+fastaidx="$6"
 
 # out = dir to export to
 mkdir -p output
