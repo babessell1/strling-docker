@@ -17,8 +17,6 @@ extract_subject_name() {
 process_file() {
     local cram="$1"
     local fasta="$2"
-    local cramidx="$3"
-
 
     local fname=$(basename "$fasta")
     local bname=$(basename "$cram" .cram)
@@ -28,7 +26,8 @@ process_file() {
     local ro_cramidx_dir=$(dirname "$cramidx")
     
     # strling requires idx in same folder
-    cp "${ro_cramidx_dir}/${bname}.cram.crai" "${ro_cram_dir}/${bname}.cram.crai"
+    #cp "${ro_cramidx_dir}/${bname}.cram.crai" "${ro_cram_dir}/${bname}.cram.crai"
+    samtools index -@ 2 "$cram"
 
     # extract repetitive region binaries
     /usr/local/bin/strling extract -f "$fasta" "$cram" "output/${bname}.bin"
@@ -42,9 +41,7 @@ process_file() {
 cram1="$1"
 cram2="$2"
 fasta="$3"
-cramidx1="$4"
-cramidx2="$5"
-fastaidx="$6"
+fastaidx="$4"
 
 # out = dir to export to
 mkdir -p output
@@ -52,10 +49,10 @@ mkdir -p out
 
 # Run the script in parallel for both cram1 and cram2
 (
-    process_file "$cram1" "$fasta" "$cramidx1"
+    process_file "$cram1" "$fasta"
 ) &
 (
-    process_file "$cram2" "$fasta" "$cramidx2"
+    process_file "$cram2" "$fasta"
 ) &
 
 # Wait for all parallel processes to finish
@@ -65,6 +62,3 @@ name2=$(extract_subject_name "$(basename "$cram2" .cram)")
 
 tar cf ${name1}___${name2}.tar output
 mv ${name1}___${name2}.tar out/${name1}___${name2}.tar
-
-echo "$(ls out)"
-echo "$(ls output)"
