@@ -3,7 +3,7 @@
 extract_subject_name() {
     # get sample name from cram/bam filename
     local string=$1
-    local delimiter="vcpa"
+    local delimiter="_vcpa"
     local subject_name=""
 
     # Use the delimiter "vcpa" to split the string and extract the subject name
@@ -59,6 +59,8 @@ mkdir -p out
 wait
 name1=$(extract_subject_name "$(basename "$cram1" .cram)")
 name2=$(extract_subject_name "$(basename "$cram2" .cram)")
+
+echo "${name1}___${name2}.tar"
 
 tar cf ${name1}___${name2}.tar output
 mv ${name1}___${name2}.tar out/${name1}___${name2}.tar
