@@ -2,13 +2,12 @@
 
 extract_subject_name() {
     # get sample name from cram/bam filename
-    local string=$1
+    local string="$1"
     local delimiter="_vcpa"
     local subject_name=""
 
-    # Use the delimiter "vcpa" to split the string and extract the subject name
-    IFS="$delimiter" read -ra parts <<< "$string"
-    subject_name="${parts[0]}"
+    # Use the delimiter "_vcpa" to split the string and extract the subject name
+    subject_name="${string%%$delimiter*}"
 
     echo "$subject_name"
 }
