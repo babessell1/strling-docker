@@ -45,9 +45,8 @@ process_file() {
 
     # If the process fails, set the failed CRAM variable
     if [ $? -ne 0 ]; then
-        failed_cram="$cram"
         # Trigger the cleanup function here to ensure it has a valid failed_cram value
-        cleanup "$failed_cram"
+        cleanup "$cram"
         # set task_status to failed depending on which task failed
         if [ "$cram" == "$cram1" ]; then
             task1_status=1
@@ -58,9 +57,8 @@ process_file() {
 
     # extra double check to make sure file exists
     if [ ! -f "output/$(basename "$cram" .cram)-genotype.txt" ] 
-        failed_cram="$cram"
         # Trigger the cleanup function here to ensure it has a valid failed_cram value
-        cleanup "$failed_cram"
+        cleanup "$cram"
         # set task_status to failed depending on which task failed
         if [ "$cram" == "$cram1" ]; then
             task1_status=1
@@ -98,15 +96,13 @@ if [ "$task1_status" -ne 0 ] || [ "$task2_status" -ne 0 ]; then
     echo "One or more tasks were killed. Cleaning up..."
 
     # Determine which task failed and create a TAR for the successful task
-    if [ "$task1_status" -eq 0 ]; then
-        cleanup "$cram2"
+    if [ "$task1_status" -eq 0 ]; then  # task 1 succeeded, only create a TAR for task 1
         name1=$(extract_subject_name "$(basename "$cram1" .cram)")
         echo "Task 1 failed. Creating TAR for $name1 only..."
         tar cf "out/${name1}.tar" "output"
         # exit with a pass to ensure tibanna will take what it can get
         exit 0
-    elif [ "$task2_status" -eq 0 ]; then
-        cleanup "$cram1"
+    elif [ "$task2_status" -eq 0 ]; then  # task 2 succeeded, only create a TAR for task 2
         name2=$(extract_subject_name "$(basename "$cram2" .cram)")
         echo "Task 2 failed. Creating TAR for $name2 only..."
         tar cf "out/${name2}.tar" "output"
