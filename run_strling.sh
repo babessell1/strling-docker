@@ -56,7 +56,7 @@ process_file() {
     fi
 
     # extra double check to make sure file exists
-    if [ ! -f "output/$(basename "$cram" .cram)-genotype.txt" ] 
+    if [ ! -f "output/${bname}-genotype.txt" ] 
         # Trigger the cleanup function here to ensure it has a valid failed_cram value
         cleanup "$cram"
         # set task_status to failed depending on which task failed
@@ -86,10 +86,8 @@ mkdir -p out
     process_file "$cram2" "$fasta"
 ) &
 
-
 # Wait for all parallel processes to finish
 wait
-
 
 # Check if either of the tasks were killed (exit code is non-zero)
 if [ "$task1_status" -ne 0 ] || [ "$task2_status" -ne 0 ]; then
