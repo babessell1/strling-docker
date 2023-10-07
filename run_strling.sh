@@ -19,8 +19,7 @@ cleanup() {
     local bname=$(basename "$cram" .cram)
     
     # Remove CRAM files and associated output
-    rm -f "output/${bname}.bin"
-    rm -f "output/${bname}.vcf"
+    rm -f "output/${bname}*"
 }
 
 
