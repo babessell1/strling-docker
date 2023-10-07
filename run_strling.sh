@@ -48,10 +48,26 @@ process_file() {
         failed_cram="$cram"
         # Trigger the cleanup function here to ensure it has a valid failed_cram value
         cleanup "$failed_cram"
-        # set $? to 1 to indicate that the process failed without exiting the script
-        return 1
+        # set task_status to failed depending on which task failed
+        if [ "$cram" == "$cram1" ]; then
+            task1_status=1
+        elif [ "$cram" == "$cram2" ]; then
+            task2_status=1
+        fi
     fi
 
+    # extra double check to make sure file exists
+    if [ ! -f "output/$(basename "$cram" .cram)-genotype.txt" ] 
+        failed_cram="$cram"
+        # Trigger the cleanup function here to ensure it has a valid failed_cram value
+        cleanup "$failed_cram"
+        # set task_status to failed depending on which task failed
+        if [ "$cram" == "$cram1" ]; then
+            task1_status=1
+        elif [ "$cram" == "$cram2" ]; then
+            task2_status=1
+        fi
+    fi
 }
 
 # command-line (cwl file) arguments
@@ -67,11 +83,9 @@ mkdir -p out
 # Run the script in parallel for both cram1 and cram2
 (
     process_file "$cram1" "$fasta"
-    task1_status=$?  # Store the exit status of task1
 ) &
 (
     process_file "$cram2" "$fasta"
-    task2_status=$?  # Store the exit status of task2
 ) &
 
 
