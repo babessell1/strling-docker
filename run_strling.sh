@@ -23,9 +23,6 @@ cleanup() {
 }
 
 
-task1_status=0
-task2_status=0
-
 process_file() {
     local cram="$1"
     local fasta="$2"
@@ -77,6 +74,9 @@ fastaidx="$4"
 # out = dir to export to
 mkdir -p output
 mkdir -p out
+
+task1_status=0
+task2_status=0
 
 # Run the script in parallel for both cram1 and cram2
 (
