@@ -53,7 +53,8 @@ process_file() {
         cleanup "$cram"
         # set task_status to failed depending on which task failed
         # Write the fail exit code to a temporary file
-        echo "1" > "${bname}-exitcode.txt"
+        echo "failed 1: ${bname}"
+        echo "1" > "exitcodes/${bname}-exitcode.txt"
     fi
 
     # extra double check to make sure file exists
@@ -61,7 +62,8 @@ process_file() {
         # Trigger the cleanup function here to ensure it has a valid failed_cram value
         cleanup "$cram"
         # set task_status to failed depending on which task failed
-        echo "1" > "${bname}-exitcode.txt"
+        echo "failed 2: ${bname}"
+        echo "1" > "exitcodes/exitcodes${bname}-exitcode.txt"
     fi
 }
 
@@ -74,6 +76,7 @@ fastaidx="$4"
 # out = dir to export to
 mkdir -p output
 mkdir -p out
+mkdir -p exitcodes
 
 name1=$(extract_subject_name "$(basename "$cram1" .cram)")
 name2=$(extract_subject_name "$(basename "$cram2" .cram)")
@@ -89,13 +92,20 @@ name2=$(extract_subject_name "$(basename "$cram2" .cram)")
 # Wait for all parallel processes to finish
 wait
 
+bname1=$(basename "$cram1" .cram)
+bname2=$(basename "$cram2" .cram)
+
+# debug echo exit codes
+echo $(cat "exitcodes/${bname1}-exitcode.txt")
+echo $(cat "exitcodes/${bname2}-exitcode.txt")
+
 # get exit codes to set status
-task1_status=$(cat "${name1}-exitcode.txt")
-task2_status=$(cat "${name2}-exitcode.txt")
+task1_status=$(cat "exitcodes/${bname1}-exitcode.txt")
+task2_status=$(cat "exitcodes/${bname2}-exitcode.txt")
+
 
 # remove exit code files
-rm -f "${name1}-exitcode.txt"
-rm -f "${name2}-exitcode.txt"
+rm -f -r "exitcodes"
 
 # Check if either of the tasks were killed (exit code is non-zero)
 if [ "$task1_status" -ne 0 ] || [ "$task2_status" -ne 0 ]; then
