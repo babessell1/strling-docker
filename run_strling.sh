@@ -53,7 +53,7 @@ process_file() {
     fi
 
     # extra double check to make sure file exists
-    if [ ! -f "output/${bname}-genotype.txt" ] 
+    if [ ! -f "output/${bname}-genotype.txt" ]; then
         # Trigger the cleanup function here to ensure it has a valid failed_cram value
         cleanup "$cram"
         # set task_status to failed depending on which task failed
