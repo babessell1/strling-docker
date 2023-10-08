@@ -41,9 +41,9 @@ process_file() {
     ####################################################################
 
     # extract repetitive region binaries
-    #/usr/local/bin/strling extract -f "$fasta" "$cram" "output/${bname}.bin"
+    /usr/local/bin/strling extract -f "$fasta" "$cram" "output/${bname}.bin"
     # call strs
-    #/usr/local/bin/strling call --output-prefix "output/${bname}" -f "$fasta" "$cram" "output/${bname}.bin"
+    /usr/local/bin/strling call --output-prefix "output/${bname}" -f "$fasta" "$cram" "output/${bname}.bin"
 
     ####################################################################
 
