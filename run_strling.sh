@@ -63,7 +63,8 @@ process_file() {
         cleanup "$cram"
         # set task_status to failed depending on which task failed
         echo "failed 2: ${bname}"
-        echo "1" > "exitcodes/exitcodes${bname}-exitcode.txt"
+        echo "1" > "exitcodes/${bname}-exitcode.txt"
+        
     fi
 }
 
