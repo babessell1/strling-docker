@@ -38,11 +38,14 @@ process_file() {
 
     samtools index -@ 2 "$cram"
 
+    ####################################################################
+
     # extract repetitive region binaries
     /usr/local/bin/strling extract -f "$fasta" "$cram" "output/${bname}.bin"
     # call strs
     /usr/local/bin/strling call --output-prefix "output/${bname}" -f "$fasta" "$cram" "output/${bname}.bin"
 
+    ####################################################################
 
     # If the process fails, set the failed CRAM variable
     if [ $? -ne 0 ]; then
@@ -78,11 +81,9 @@ name2=$(extract_subject_name "$(basename "$cram2" .cram)")
 # Run the script in parallel for both cram1 and cram2
 (
     process_file "$cram1" "$fasta"
-    task1_status=$?
 ) &
 (
     process_file "$cram2" "$fasta"
-    task2_status=$?
 ) &
 
 # Wait for all parallel processes to finish
@@ -118,7 +119,5 @@ if [ "$task1_status" -ne 0 ] || [ "$task2_status" -ne 0 ]; then
     fi
 fi
 
-
 echo "${name1}___${name2}.tar"
-
 tar cf "out/${name1}___${name2}.tar" "output"
