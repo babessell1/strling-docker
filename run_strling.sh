@@ -33,6 +33,9 @@ process_file() {
     # read only input directories cram/bam, index
     local ro_cram_dir=$(dirname "$cram")
 
+    # Write the success code to a temporary file
+    echo "0" > "output/${bname}-exitcode.txt"
+
     samtools index -@ 2 "$cram"
 
     # extract repetitive region binaries
@@ -40,16 +43,14 @@ process_file() {
     # call strs
     /usr/local/bin/strling call --output-prefix "output/${bname}" -f "$fasta" "$cram" "output/${bname}.bin"
 
+
     # If the process fails, set the failed CRAM variable
     if [ $? -ne 0 ]; then
         # Trigger the cleanup function here to ensure it has a valid failed_cram value
         cleanup "$cram"
         # set task_status to failed depending on which task failed
-        if [ "$cram" == "$cram1" ]; then
-            task1_status=1
-        elif [ "$cram" == "$cram2" ]; then
-            task2_status=1
-        fi
+        # Write the fail exit code to a temporary file
+        echo "1" > "${bname}-exitcode.txt"
     fi
 
     # extra double check to make sure file exists
@@ -57,11 +58,7 @@ process_file() {
         # Trigger the cleanup function here to ensure it has a valid failed_cram value
         cleanup "$cram"
         # set task_status to failed depending on which task failed
-        if [ "$cram" == "$cram1" ]; then
-            task1_status=1
-        elif [ "$cram" == "$cram2" ]; then
-            task2_status=1
-        fi
+        echo "1" > "${bname}-exitcode.txt"
     fi
 }
 
@@ -75,19 +72,29 @@ fastaidx="$4"
 mkdir -p output
 mkdir -p out
 
-task1_status=0
-task2_status=0
+name1=$(extract_subject_name "$(basename "$cram1" .cram)")
+name2=$(extract_subject_name "$(basename "$cram2" .cram)")
 
 # Run the script in parallel for both cram1 and cram2
 (
     process_file "$cram1" "$fasta"
+    task1_status=$?
 ) &
 (
     process_file "$cram2" "$fasta"
+    task2_status=$?
 ) &
 
 # Wait for all parallel processes to finish
 wait
+
+# get exit codes to set status
+task1_status=$(cat "${name1}-exitcode.txt")
+task2_status=$(cat "${name2}-exitcode.txt")
+
+# remove exit code files
+rm -f "${name1}-exitcode.txt"
+rm -f "${name2}-exitcode.txt"
 
 # Check if either of the tasks were killed (exit code is non-zero)
 if [ "$task1_status" -ne 0 ] || [ "$task2_status" -ne 0 ]; then
@@ -95,13 +102,11 @@ if [ "$task1_status" -ne 0 ] || [ "$task2_status" -ne 0 ]; then
 
     # Determine which task failed and create a TAR for the successful task
     if [ "$task1_status" -eq 0 ]; then  # task 1 succeeded, only create a TAR for task 1
-        name1=$(extract_subject_name "$(basename "$cram1" .cram)")
         echo "Task 1 failed. Creating TAR for $name1 only..."
         tar cf "out/${name1}.tar" "output"
         # exit with a pass to ensure tibanna will take what it can get
         exit 0
     elif [ "$task2_status" -eq 0 ]; then  # task 2 succeeded, only create a TAR for task 2
-        name2=$(extract_subject_name "$(basename "$cram2" .cram)")
         echo "Task 2 failed. Creating TAR for $name2 only..."
         tar cf "out/${name2}.tar" "output"
         # exit with a pass to ensure tibanna will take what it can get
@@ -113,8 +118,6 @@ if [ "$task1_status" -ne 0 ] || [ "$task2_status" -ne 0 ]; then
     fi
 fi
 
-name1=$(extract_subject_name "$(basename "$cram1" .cram)")
-name2=$(extract_subject_name "$(basename "$cram2" .cram)")
 
 echo "${name1}___${name2}.tar"
 
