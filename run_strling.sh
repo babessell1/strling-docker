@@ -34,7 +34,7 @@ process_file() {
     local ro_cram_dir=$(dirname "$cram")
 
     # Write the success code to a temporary file
-    echo "0" > "output/${bname}-exitcode.txt"
+    echo "0" > "exitcodes/${bname}-exitcode.txt"
 
     samtools index -@ 2 "$cram"
 
@@ -94,6 +94,9 @@ wait
 
 bname1=$(basename "$cram1" .cram)
 bname2=$(basename "$cram2" .cram)
+
+echo "bname1: ${bname1}"
+echo "bname2: ${bname2}"
 
 # debug echo exit codes
 echo $(cat "exitcodes/${bname1}-exitcode.txt")
